@@ -1,108 +1,57 @@
 # inventarioTecnoPcMundo
 
-This application was generated using JHipster 7.1.0, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v7.1.0](https://www.jhipster.tech/documentation-archive/v7.1.0).
-
 ## Development
 
-Before you can build this project, you must install and configure the following dependencies on your machine:
+Antes de que pueda construir este proyecto, debe instalar y configurar las siguientes dependencias en su máquina:
 
-1. [Node.js][]: We use Node to run a development web server and build the project.
-   Depending on your system, you can install Node either from source or as a pre-packaged bundle.
+1. [Node.js] []: usamos Node para ejecutar un servidor web de desarrollo y construir el proyecto.
+   Dependiendo de su sistema, puede instalar Node desde la fuente o como un paquete empaquetado previamente.
 
-After installing Node, you should be able to run the following command to install development tools.
-You will only need to run this command when dependencies change in [package.json](package.json).
+Después de instalar Node, debería poder ejecutar el siguiente comando para instalar herramientas de desarrollo.
+Solo necesitará ejecutar este comando cuando las dependencias cambien en [package.json](package.json).
 
 ```
 npm install
 ```
 
-We use npm scripts and [Angular CLI][] with [Webpack][] as our build system.
+Usamos scripts npm y [Angular CLI] [] con [Webpack] [] como nuestro sistema de compilación.
 
-Run the following commands in two separate terminals to create a blissful development experience where your browser
-auto-refreshes when files change on your hard drive.
+Ejecute los siguientes comandos en dos terminales separados para crear una experiencia de desarrollo maravillosa donde su navegador
+se actualiza automáticamente cuando los archivos cambian en su disco duro.
 
 ```
 ./mvnw
 npm start
 ```
 
-Npm is also used to manage CSS and JavaScript dependencies used in this application. You can upgrade dependencies by
-specifying a newer version in [package.json](package.json). You can also run `npm update` and `npm install` to manage dependencies.
-Add the `help` flag on any command to see how you can use it. For example, `npm help update`.
+Npm también se usa para administrar las dependencias de CSS y JavaScript que se usan en esta aplicación. Puede actualizar las dependencias
+especificando una versión más reciente en [package.json] (package.json). También puede ejecutar `npm update` y` npm install` para administrar las dependencias.
+Agregue la marca `help` en cualquier comando para ver cómo puede usarlo. Por ejemplo, `npm help update`.
 
-The `npm run` command will list all of the scripts available to run for this project.
+El comando `npm run` listará todos los scripts disponibles para ejecutar en este proyecto.
 
 ### PWA Support
 
-JHipster ships with PWA (Progressive Web App) support, and it's turned off by default. One of the main components of a PWA is a service worker.
+Compatibilidad con PWA (aplicación web progresiva) y está desactivado de forma predeterminada. Uno de los componentes principales de una PWA es un trabajador de servicios.
 
-The service worker initialization code is disabled by default. To enable it, uncomment the following code in `src/main/webapp/app/app.module.ts`:
+El código de inicialización del trabajador del servicio está deshabilitado de forma predeterminada. Para habilitarlo, descomente el siguiente código en `src / main / webapp / app / app.module.ts`:
 
 ```typescript
 ServiceWorkerModule.register('ngsw-worker.js', { enabled: false }),
-```
-
-### Managing dependencies
-
-For example, to add [Leaflet][] library as a runtime dependency of your application, you would run following command:
-
-```
-npm install --save --save-exact leaflet
-```
-
-To benefit from TypeScript type definitions from [DefinitelyTyped][] repository in development, you would run following command:
-
-```
-npm install --save-dev --save-exact @types/leaflet
-```
-
-Then you would import the JS and CSS files specified in library's installation instructions so that [Webpack][] knows about them:
-Edit [src/main/webapp/app/app.module.ts](src/main/webapp/app/app.module.ts) file:
-
-```
-import 'leaflet/dist/leaflet.js';
-```
-
-Edit [src/main/webapp/content/scss/vendor.scss](src/main/webapp/content/scss/vendor.scss) file:
-
-```
-@import '~leaflet/dist/leaflet.css';
-```
-
-Note: There are still a few other things remaining to do for Leaflet that we won't detail here.
-
-For further instructions on how to develop with JHipster, have a look at [Using JHipster in development][].
-
-### Using Angular CLI
-
-You can also use [Angular CLI][] to generate some custom client code.
-
-For example, the following command:
-
-```
-ng generate component my-component
-```
-
-will generate few files:
-
-```
-create src/main/webapp/app/my-component/my-component.component.html
-create src/main/webapp/app/my-component/my-component.component.ts
-update src/main/webapp/app/app.module.ts
 ```
 
 ## Building for production
 
 ### Packaging as jar
 
-To build the final jar and optimize the inventarioTecnoPcMundo application for production, run:
+Para construir el proyecto final y optimizar la aplicación inventarioTecnoPcMundo para producción, ejecute:
 
 ```
 ./mvnw -Pprod clean verify
 ```
 
-This will concatenate and minify the client CSS and JavaScript files. It will also modify `index.html` so it references these new files.
-To ensure everything worked, run:
+Esto concatenará y minimizará los archivos CSS y JavaScript del cliente. También modificará `index.html` para que haga referencia a estos nuevos archivos.
+Para asegurarse de que todo funcionó, ejecute:
 
 ```
 java -jar target/*.jar
@@ -114,7 +63,7 @@ Refer to [Using JHipster in production][] for more details.
 
 ### Packaging as war
 
-To package your application as a war in order to deploy it to an application server, run:
+Para empaquetar su aplicación como un .war para implementarla en un servidor de aplicaciones, ejecute:
 
 ```
 ./mvnw -Pprod,war clean verify
@@ -122,7 +71,7 @@ To package your application as a war in order to deploy it to an application ser
 
 ## Testing
 
-To launch your application's tests, run:
+Para iniciar las pruebas de su aplicación, ejecute:
 
 ```
 ./mvnw verify
@@ -130,101 +79,93 @@ To launch your application's tests, run:
 
 ### Client tests
 
-Unit tests are run by [Jest][]. They're located in [src/test/javascript/](src/test/javascript/) and can be run with:
+[Jest] [] ejecuta las pruebas unitarias. Están ubicados en [src / test / javascript /] (src / test / javascript /) y se pueden ejecutar con:
 
 ```
 npm test
 ```
 
-UI end-to-end tests are powered by [Cypress][]. They're located in [src/test/javascript/cypress](src/test/javascript/cypress)
-and can be run by starting Spring Boot in one terminal (`./mvnw spring-boot:run`) and running the tests (`npm run e2e`) in a second one.
-
-#### Lighthouse audits
-
-You can execute automated [lighthouse audits][https://developers.google.com/web/tools/lighthouse/] with [cypress audits][https://github.com/mfrachet/cypress-audit] by running `npm run e2e:cypress:audits`.
-You should only run the audits when your application is packaged with the production profile.
-The lighthouse report is created in `target/cypress/lhreport.html`
-
-For more information, refer to the [Running tests page][].
+Las pruebas de interfaz de usuario de un extremo a otro son impulsadas por [Cypress] []. Están ubicados en [src / test / javascript / cypress] (src / test / javascript / cypress)
+y se puede ejecutar iniciando Spring Boot en una terminal (`./mvnw spring-boot: run`) y ejecutando las pruebas (` npm run e2e`) en una segunda.
 
 ### E2E Webapp Code Coverage
 
-When using Cypress, you can generate code coverage report by running your dev server with instrumented code:
+Al usar Cypress, puede generar un informe de cobertura de código ejecutando su servidor de desarrollo con código instrumentado:
 
-Build your Angular application with instrumented code:
+Construya su aplicación Angular con código instrumentado:
 
-    npm run webapp:instrumenter
+     npm ejecutar webapp: instrumenter
 
-Start your backend without compiling frontend:
+Inicie su backend sin compilar el frontend:
 
-    npm run backend:start
+     npm ejecutar backend: iniciar
 
-Start your Cypress end to end testing:
+Empiece a probar Cypress de principio a fin:
 
-    npm run e2e:cypress:coverage
+     npm run e2e: cypress: cobertura
 
-The coverage report is generated under `./coverage/lcov-report/`
+El informe de cobertura se genera en `. /Cover / lcov-report /`
 
 ### Code quality
 
-Sonar is used to analyse code quality. You can start a local Sonar server (accessible on http://localhost:9001) with:
+La sonda se utiliza para analizar la calidad del código. Puede iniciar un servidor Sonar local (accesible en http: // localhost: 9001) con:
 
-```
-docker-compose -f src/main/docker/sonar.yml up -d
-```
+''
+docker-compose -f src / main / docker / sonar.yml up -d
+''
 
-Note: we have turned off authentication in [src/main/docker/sonar.yml](src/main/docker/sonar.yml) for out of the box experience while trying out SonarQube, for real use cases turn it back on.
+Nota: hemos desactivado la autenticación en [src / main / docker / sonar.yml] (src / main / docker / sonar.yml) para una experiencia inmediata al probar SonarQube, para casos de uso reales, vuelva a activarlo.
 
-You can run a Sonar analysis with using the [sonar-scanner](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner) or by using the maven plugin.
+Puede ejecutar un análisis de Sonar usando el [sonar-scanner] (https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner) o usando el complemento maven.
 
-Then, run a Sonar analysis:
+Luego, ejecute un análisis de sonda:
 
-```
-./mvnw -Pprod clean verify sonar:sonar
-```
+''
+./mvnw -Pprod clean verificar sonar: sonar
+''
 
-If you need to re-run the Sonar phase, please be sure to specify at least the `initialize` phase since Sonar properties are loaded from the sonar-project.properties file.
+Si necesita volver a ejecutar la fase Sonar, asegúrese de especificar al menos la fase `initialize` ya que las propiedades de Sonar se cargan desde el archivo sonar-project.properties.
 
-```
-./mvnw initialize sonar:sonar
-```
+''
+./mvnw inicializar sonar: sonar
+''
 
-For more information, refer to the [Code quality page][].
+Para obtener más información, consulte la [Página de calidad del código] [].
 
-## Using Docker to simplify development (optional)
+## Uso de Docker para simplificar el desarrollo (opcional)
 
-You can use Docker to improve your JHipster development experience. A number of docker-compose configuration are available in the [src/main/docker](src/main/docker) folder to launch required third party services.
+Puede utilizar Docker para mejorar su experiencia de desarrollo de JHipster. Hay varias configuraciones de docker-compose disponibles en la carpeta [src / main / docker] (src / main / docker) para iniciar los servicios de terceros requeridos.
 
-For example, to start a mysql database in a docker container, run:
+Por ejemplo, para iniciar una base de datos mysql en un contenedor docker, ejecute:
 
-```
-docker-compose -f src/main/docker/mysql.yml up -d
-```
+''
+docker-compose -f src / main / docker / mysql.yml up -d
+''
 
-To stop it and remove the container, run:
+Para detenerlo y quitar el contenedor, ejecute:
 
-```
-docker-compose -f src/main/docker/mysql.yml down
-```
+''
+docker-compose -f src / main / docker / mysql.yml abajo
+''
 
-You can also fully dockerize your application and all the services that it depends on.
-To achieve this, first build a docker image of your app by running:
+También puede dockerizar completamente su aplicación y todos los servicios de los que depende.
+Para lograr esto, primero cree una imagen de la ventana acoplable de su aplicación ejecutando:
 
-```
-./mvnw -Pprod verify jib:dockerBuild
-```
+''
+./mvnw -Pprod verificar jib: dockerBuild
+''
 
-Then run:
+Entonces corre:
 
-```
-docker-compose -f src/main/docker/app.yml up -d
-```
+''
+docker-compose -f src / main / docker / app.yml up -d
+''
 
-For more information refer to [Using Docker and Docker-Compose][], this page also contains information on the docker-compose sub-generator (`jhipster docker-compose`), which is able to generate docker configurations for one or several JHipster applications.
+Para obtener más información, consulte [Uso de Docker y Docker-Compose] [], esta página también contiene información sobre el subgenerador de docker-compose (`jhipster docker-compose`), que puede generar configuraciones de docker para uno o varios JHipster aplicaciones.
 
-## Continuous Integration (optional)
+## Integración continua (opcional)
 
-To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`), this will let you generate configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration][] page for more information.
+Para configurar CI para su proyecto, ejecute el subgenerador ci-cd (`jhipster ci-cd`), esto le permitirá generar archivos de configuración para varios sistemas de Integración Continua. Consulte la página [Configuración de la integración continua] [] para obtener más información.
 
 [jhipster homepage and latest documentation]: https://www.jhipster.tech
 [jhipster 7.1.0 archive]: https://www.jhipster.tech/documentation-archive/v7.1.0

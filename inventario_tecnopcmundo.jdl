@@ -1,0 +1,45 @@
+// Tabla de inventario
+entity Producto {
+	nombre String required,
+    cantidad Long required,
+    estado String required,
+    precioventa Long required,
+    preciocompra Long required,
+}
+
+ 
+entity AudProducto {	
+    fecha Instant required ,
+    precioventa Long required,
+    preciocompra Long required,
+    cantidad Long required,
+    //user
+}
+
+entity Proveedor {
+	nombre String,
+    contacto String,
+    direccion String
+}
+
+
+relationship OneToMany {
+	AudProducto{producto} to Producto
+}
+
+relationship OneToMany {
+	AudProducto{user} to User 
+}
+
+relationship OneToMany {
+	Proveedor{proveedores} to AudProducto
+}
+
+// Set pagination options
+paginate * with pagination
+
+// Use Data Transfer Objects (DTO)
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
