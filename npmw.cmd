@@ -22,3 +22,4 @@ if not exist %NPM_EXE% goto globalNpm
 
 :globalNpm
 npm %*
+
