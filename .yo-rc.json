@@ -43,6 +43,20 @@
     "devServerPort": 4200,
     "clientPackageManager": "npm",
     "languages": ["es"],
-    "cypressCoverage": true
+    "cypressCoverage": true,
+    "entities": [
+      "DetallesUsuario",
+      "Producto",
+      "Categoria",
+      "Estado",
+      "Precio",
+      "Proveedor",
+      "Pedido",
+      "Compra",
+      "Publicacion",
+      "EstadoPublicacion",
+      "CategoriaPublicacion"
+    ],
+    "lastLiquibaseTimestamp": 1632957646000
   }
 }

@@ -4,7 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 
 import { LANGUAGES } from 'app/config/language.constants';
 import { User } from '../user-management.model';
+
 import { UserManagementService } from '../service/user-management.service';
+import { DetallesUsuarioService } from 'app/entities/detalles-usuario/service/detalles-usuario.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { DetallesUsuario } from 'app/entities/detalles-usuario/detalles-usuario.model';
 
 @Component({
   selector: 'jhi-user-mgmt-update',
@@ -12,8 +16,11 @@ import { UserManagementService } from '../service/user-management.service';
 })
 export class UserManagementUpdateComponent implements OnInit {
   user!: User;
+  detallesUsuario!: DetallesUsuario;
+
   languages = LANGUAGES;
   authorities: string[] = [];
+
   isSaving = false;
 
   editForm = this.fb.group({
@@ -30,12 +37,20 @@ export class UserManagementUpdateComponent implements OnInit {
     firstName: ['', [Validators.maxLength(50)]],
     lastName: ['', [Validators.maxLength(50)]],
     email: ['', [Validators.minLength(5), Validators.maxLength(254), Validators.email]],
+    telefono: [],
+    identificacion: [],
+    ciudad: [],
     activated: [],
     langKey: [],
     authorities: [],
   });
 
-  constructor(private userService: UserManagementService, private route: ActivatedRoute, private fb: FormBuilder) {}
+  constructor(
+    private userService: UserManagementService,
+    private detallesUsuarioService: DetallesUsuarioService,
+    private route: ActivatedRoute,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.route.data.subscribe(({ user }) => {
@@ -44,9 +59,14 @@ export class UserManagementUpdateComponent implements OnInit {
         if (this.user.id === undefined) {
           this.user.activated = true;
         }
-        this.updateForm(user);
+
+        this.detallesUsuarioService.findByUserId(this.user.id!).subscribe(detalles => {
+          this.detallesUsuario = detalles;
+          this.updateForm(this.user, detalles);
+        });
       }
     });
+
     this.userService.authorities().subscribe(authorities => (this.authorities = authorities));
   }
 
@@ -57,11 +77,13 @@ export class UserManagementUpdateComponent implements OnInit {
   save(): void {
     this.isSaving = true;
     this.updateUser(this.user);
+
     if (this.user.id !== undefined) {
       this.userService.update(this.user).subscribe(
         () => this.onSaveSuccess(),
         () => this.onSaveError()
       );
+      this.detallesUsuarioService.update(this.detallesUsuario).subscribe();
     } else {
       this.userService.create(this.user).subscribe(
         () => this.onSaveSuccess(),
@@ -70,13 +92,16 @@ export class UserManagementUpdateComponent implements OnInit {
     }
   }
 
-  private updateForm(user: User): void {
+  private updateForm(user: User, detalles: DetallesUsuario): void {
     this.editForm.patchValue({
       id: user.id,
       login: user.login,
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
+      telefono: detalles.telefono,
+      identificacion: detalles.identificacion,
+      ciudad: detalles.ciudad,
       activated: user.activated,
       langKey: user.langKey,
       authorities: user.authorities,
@@ -91,6 +116,13 @@ export class UserManagementUpdateComponent implements OnInit {
     user.activated = this.editForm.get(['activated'])!.value;
     user.langKey = this.editForm.get(['langKey'])!.value;
     user.authorities = this.editForm.get(['authorities'])!.value;
+
+    this.detallesUsuario.telefono = this.editForm.get(['telefono'])!.value;
+
+    console.error(this.detallesUsuario.ciudad);
+    this.detallesUsuario.identificacion = this.editForm.get(['identificacion'])!.value;
+
+    this.detallesUsuario.ciudad = this.editForm.get(['ciudad'])!.value;
   }
 
   private onSaveSuccess(): void {

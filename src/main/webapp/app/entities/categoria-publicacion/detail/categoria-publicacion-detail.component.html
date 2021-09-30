@@ -1,0 +1,42 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="categoriaPublicacion">
+      <h2 data-cy="categoriaPublicacionDetailsHeading">
+        <span jhiTranslate="inventarioTecnoPcMundoApp.categoriaPublicacion.detail.title">Categoria Publicacion</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ categoriaPublicacion.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="inventarioTecnoPcMundoApp.categoriaPublicacion.titulo">Titulo</span></dt>
+        <dd>
+          <span>{{ categoriaPublicacion.titulo }}</span>
+        </dd>
+        <dt><span jhiTranslate="inventarioTecnoPcMundoApp.categoriaPublicacion.descripcion">Descripcion</span></dt>
+        <dd>
+          <span>{{ categoriaPublicacion.descripcion }}</span>
+        </dd>
+        <dt><span jhiTranslate="inventarioTecnoPcMundoApp.categoriaPublicacion.createAt">Create At</span></dt>
+        <dd>
+          <span>{{ categoriaPublicacion.createAt | formatMediumDatetime }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/categoria-publicacion', categoriaPublicacion.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

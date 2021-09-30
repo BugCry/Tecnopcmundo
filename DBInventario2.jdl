@@ -1,0 +1,94 @@
+entity DetallesUsuario {
+	telefono String,
+    identificacion String,
+    ciudad String
+}
+
+
+entity Producto {
+	nombre String,
+    cantidad Long     
+}
+
+entity Categoria {
+	nombre String    
+}
+
+entity Estado {
+	nombre String    
+}
+
+entity Precio {
+	precioCompra BigDecimal,
+    precioVenta BigDecimal,
+    descuento Integer,
+    profit Integer    
+}
+
+entity Proveedor {
+	nit String,
+    nombre String,
+    contacto String,
+    direccion String,    
+}
+
+entity Pedido {	
+    cantidad Long
+}
+
+entity Compra {	
+    total BigDecimal,    
+    createAt Instant
+}
+ 
+
+entity Publicacion {
+	titulo String,
+    descripcion TextBlob,    
+    imagen ImageBlob,    
+    createAt Instant,
+}
+
+entity EstadoPublicacion {
+	nombre String    
+}
+
+
+entity CategoriaPublicacion {
+	titulo String,
+    descripcion TextBlob,        
+    createAt Instant,
+}
+
+
+relationship ManyToOne {
+	Publicacion{categoriaPublicacion(titulo)} to CategoriaPublicacion,
+    Publicacion{user(login)} to User,
+    Producto{categoria(nombre)} to Categoria,
+    
+    Producto{proveedor(nombre)} to Proveedor,    
+       
+    Producto{estado(nombre)} to Estado,	
+    Publicacion{estado(nombre)} to EstadoPublicacion,	
+        
+  	Pedido{producto(nombre)} to Producto //{compras}    
+}
+
+relationship OneToOne {
+	Producto{precio(precioVenta)} to Precio{Producto(nombre)}    
+    DetallesUsuario{user(login) } to User
+}
+
+relationship OneToMany {
+	DetallesUsuario{compra} to Compra{user},
+    Compra{pedido} to Pedido{compra}
+}
+
+// Set pagination options
+paginate * with pagination
+
+// Use Data Transfer Objects (DTO)
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl

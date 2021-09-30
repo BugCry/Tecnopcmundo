@@ -1,0 +1,104 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-producto-heading"
+        data-cy="ProductoCreateUpdateHeading"
+        jhiTranslate="inventarioTecnoPcMundoApp.producto.home.createOrEditLabel"
+      >
+        Create or edit a Producto
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="inventarioTecnoPcMundoApp.producto.nombre" for="field_nombre">Nombre</label>
+          <input type="text" class="form-control" name="nombre" id="field_nombre" data-cy="nombre" formControlName="nombre" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="inventarioTecnoPcMundoApp.producto.cantidad" for="field_cantidad">Cantidad</label>
+          <input type="number" class="form-control" name="cantidad" id="field_cantidad" data-cy="cantidad" formControlName="cantidad" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="inventarioTecnoPcMundoApp.producto.precio" for="field_precio">Precio</label>
+          <select class="form-control" id="field_precio" data-cy="precio" name="precio" formControlName="precio">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="precioOption.id === editForm.get('precio')!.value?.id ? editForm.get('precio')!.value : precioOption"
+              *ngFor="let precioOption of preciosCollection; trackBy: trackPrecioById"
+            >
+              {{ precioOption.precioVenta }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="inventarioTecnoPcMundoApp.producto.categoria" for="field_categoria"
+            >Categoria</label
+          >
+          <select class="form-control" id="field_categoria" data-cy="categoria" name="categoria" formControlName="categoria">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="categoriaOption.id === editForm.get('categoria')!.value?.id ? editForm.get('categoria')!.value : categoriaOption"
+              *ngFor="let categoriaOption of categoriasSharedCollection; trackBy: trackCategoriaById"
+            >
+              {{ categoriaOption.nombre }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="inventarioTecnoPcMundoApp.producto.proveedor" for="field_proveedor"
+            >Proveedor</label
+          >
+          <select class="form-control" id="field_proveedor" data-cy="proveedor" name="proveedor" formControlName="proveedor">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="proveedorOption.id === editForm.get('proveedor')!.value?.id ? editForm.get('proveedor')!.value : proveedorOption"
+              *ngFor="let proveedorOption of proveedorsSharedCollection; trackBy: trackProveedorById"
+            >
+              {{ proveedorOption.nombre }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="inventarioTecnoPcMundoApp.producto.estado" for="field_estado">Estado</label>
+          <select class="form-control" id="field_estado" data-cy="estado" name="estado" formControlName="estado">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="estadoOption.id === editForm.get('estado')!.value?.id ? editForm.get('estado')!.value : estadoOption"
+              *ngFor="let estadoOption of estadosSharedCollection; trackBy: trackEstadoById"
+            >
+              {{ estadoOption.nombre }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

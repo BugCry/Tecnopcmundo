@@ -108,6 +108,21 @@
           </div>
         </div>
 
+        <div class="form-group">
+          <label class="form-control-label">Telefono</label>
+          <input type="text" class="form-control" name="telefono" formControlName="telefono" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label">Identificacion</label>
+          <input type="text" class="form-control" name="identificacion" formControlName="identificacion" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label">Ciudad</label>
+          <input type="text" class="form-control" name="ciudad" formControlName="ciudad" />
+        </div>
+
         <div class="form-check">
           <label class="form-check-label" for="activated">
             <input
@@ -122,12 +137,14 @@
           </label>
         </div>
 
+        <!-- 
         <div class="form-group" *ngIf="languages && languages.length > 0">
           <label jhiTranslate="userManagement.langKey">Lang Key</label>
           <select class="form-control" id="langKey" name="langKey" formControlName="langKey">
             <option *ngFor="let language of languages" [value]="language">{{ language | findLanguageFromKey }}</option>
           </select>
         </div>
+        -->
 
         <div class="form-group">
           <label jhiTranslate="userManagement.profiles">Profiles</label>

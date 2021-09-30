@@ -10,6 +10,8 @@ import { Account } from 'app/core/auth/account.model';
 import { UserManagementService } from '../service/user-management.service';
 import { User } from '../user-management.model';
 import { UserManagementDeleteDialogComponent } from '../delete/user-management-delete-dialog.component';
+import { DetallesUsuario } from 'app/entities/detalles-usuario/detalles-usuario.model';
+import { DetallesUsuarioService } from 'app/entities/detalles-usuario/service/detalles-usuario.service';
 
 @Component({
   selector: 'jhi-user-mgmt',
@@ -18,6 +20,8 @@ import { UserManagementDeleteDialogComponent } from '../delete/user-management-d
 export class UserManagementComponent implements OnInit {
   currentAccount: Account | null = null;
   users: User[] | null = null;
+  detallesUsuarios: DetallesUsuario[] | null = null;
+
   isLoading = false;
   totalItems = 0;
   itemsPerPage = ITEMS_PER_PAGE;
@@ -27,6 +31,7 @@ export class UserManagementComponent implements OnInit {
 
   constructor(
     private userService: UserManagementService,
+    private detallesUsuarioService: DetallesUsuarioService,
     private accountService: AccountService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -72,6 +77,20 @@ export class UserManagementComponent implements OnInit {
         },
         () => (this.isLoading = false)
       );
+
+    this.detallesUsuarioService
+      .query({
+        page: this.page - 1,
+        size: this.itemsPerPage,
+        sort: this.sort(),
+      })
+      .subscribe(
+        (res: HttpResponse<DetallesUsuario[]>) => {
+          this.isLoading = false;
+          this.onSuccessUserDetails(res.body, res.headers);
+        },
+        () => (this.isLoading = false)
+      );
   }
 
   transition(): void {
@@ -106,5 +125,10 @@ export class UserManagementComponent implements OnInit {
   private onSuccess(users: User[] | null, headers: HttpHeaders): void {
     this.totalItems = Number(headers.get('X-Total-Count'));
     this.users = users;
+  }
+
+  private onSuccessUserDetails(detallesUsuario: DetallesUsuario[] | null, headers: HttpHeaders): void {
+    this.totalItems = Number(headers.get('X-Total-Count'));
+    this.detallesUsuarios = detallesUsuario;
   }
 }

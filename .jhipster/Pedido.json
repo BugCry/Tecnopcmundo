@@ -1,0 +1,34 @@
+{
+  "name": "Pedido",
+  "fields": [
+    {
+      "fieldName": "cantidad",
+      "fieldType": "Long"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "producto",
+      "otherEntityRelationshipName": "pedido",
+      "relationshipName": "producto",
+      "otherEntityField": "nombre"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "compra",
+      "otherEntityRelationshipName": "pedido",
+      "relationshipName": "compra"
+    }
+  ],
+  "entityTableName": "pedido",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210929232042"
+}

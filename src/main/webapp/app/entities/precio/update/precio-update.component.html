@@ -1,0 +1,90 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-precio-heading"
+        data-cy="PrecioCreateUpdateHeading"
+        jhiTranslate="inventarioTecnoPcMundoApp.precio.home.createOrEditLabel"
+      >
+        Create or edit a Precio
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="inventarioTecnoPcMundoApp.precio.precioCompra" for="field_precioCompra"
+            >Precio Compra</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="precioCompra"
+            id="field_precioCompra"
+            data-cy="precioCompra"
+            formControlName="precioCompra"
+            (change)="changeFn($event)"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="inventarioTecnoPcMundoApp.precio.profit" for="field_profit">Profit</label>
+          <input
+            type="number"
+            class="form-control"
+            name="profit"
+            id="field_profit"
+            data-cy="profit"
+            formControlName="profit"
+            (change)="changeFn($event)"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="inventarioTecnoPcMundoApp.precio.precioVenta" for="field_precioVenta"
+            >Precio Venta</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="precioVenta"
+            id="field_precioVenta"
+            data-cy="precioVenta"
+            formControlName="precioVenta"
+            [value]="precioVentaF"
+          />
+        </div>
+
+        <!--
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="inventarioTecnoPcMundoApp.precio.descuento"
+            for="field_descuento">Descuento</label>
+          <input type="number" class="form-control" name="descuento" id="field_descuento" data-cy="descuento"
+            formControlName="descuento" />
+        </div>
+        -->
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,73 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="publicacion">
+      <h2 data-cy="publicacionDetailsHeading">
+        <span jhiTranslate="inventarioTecnoPcMundoApp.publicacion.detail.title">Publicacion</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ publicacion.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="inventarioTecnoPcMundoApp.publicacion.titulo">Titulo</span></dt>
+        <dd>
+          <span>{{ publicacion.titulo }}</span>
+        </dd>
+        <dt><span jhiTranslate="inventarioTecnoPcMundoApp.publicacion.descripcion">Descripcion</span></dt>
+        <dd>
+          <span>{{ publicacion.descripcion }}</span>
+        </dd>
+        <dt><span jhiTranslate="inventarioTecnoPcMundoApp.publicacion.imagen">Imagen</span></dt>
+        <dd>
+          <div *ngIf="publicacion.imagen">
+            <a (click)="openFile(publicacion.imagen, publicacion.imagenContentType)">
+              <img
+                [src]="'data:' + publicacion.imagenContentType + ';base64,' + publicacion.imagen"
+                style="max-width: 100%"
+                alt="publicacion image"
+              />
+            </a>
+            {{ publicacion.imagenContentType }}, {{ byteSize(publicacion.imagen) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="inventarioTecnoPcMundoApp.publicacion.createAt">Create At</span></dt>
+        <dd>
+          <span>{{ publicacion.createAt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="inventarioTecnoPcMundoApp.publicacion.categoriaPublicacion">Categoria Publicacion</span></dt>
+        <dd>
+          <div *ngIf="publicacion.categoriaPublicacion">
+            <a [routerLink]="['/categoria-publicacion', publicacion.categoriaPublicacion?.id, 'view']">{{
+              publicacion.categoriaPublicacion?.titulo
+            }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="inventarioTecnoPcMundoApp.publicacion.user">User</span></dt>
+        <dd>
+          <span>{{ publicacion.user?.login }}</span>
+        </dd>
+        <dt><span jhiTranslate="inventarioTecnoPcMundoApp.publicacion.estado">Estado</span></dt>
+        <dd>
+          <div *ngIf="publicacion.estado">
+            <a [routerLink]="['/estado-publicacion', publicacion.estado?.id, 'view']">{{ publicacion.estado?.nombre }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/publicacion', publicacion.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

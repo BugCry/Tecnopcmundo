@@ -1,0 +1,41 @@
+{
+  "name": "Precio",
+  "fields": [
+    {
+      "fieldName": "precioCompra",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "precioVenta",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "descuento",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "profit",
+      "fieldType": "Integer"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "producto",
+      "otherEntityRelationshipName": "precio",
+      "relationshipName": "producto",
+      "otherEntityField": "nombre",
+      "ownerSide": false
+    }
+  ],
+  "entityTableName": "precio",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210929232040"
+}

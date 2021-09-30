@@ -1,0 +1,167 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-publicacion-heading"
+        data-cy="PublicacionCreateUpdateHeading"
+        jhiTranslate="inventarioTecnoPcMundoApp.publicacion.home.createOrEditLabel"
+      >
+        Create or edit a Publicacion
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="inventarioTecnoPcMundoApp.publicacion.titulo" for="field_titulo">Titulo</label>
+          <input type="text" class="form-control" name="titulo" id="field_titulo" data-cy="titulo" formControlName="titulo" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="inventarioTecnoPcMundoApp.publicacion.descripcion" for="field_descripcion"
+            >Descripcion</label
+          >
+          <textarea
+            class="form-control"
+            name="descripcion"
+            id="field_descripcion"
+            data-cy="descripcion"
+            formControlName="descripcion"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="inventarioTecnoPcMundoApp.publicacion.imagen" for="field_imagen">Imagen</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('imagenContentType')!.value + ';base64,' + editForm.get('imagen')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('imagen')!.value"
+              alt="publicacion image"
+            />
+            <div *ngIf="editForm.get('imagen')!.value" class="form-text text-danger clearfix">
+              <span class="pull-left">{{ editForm.get('imagenContentType')!.value }}, {{ byteSize(editForm.get('imagen')!.value) }}</span>
+              <button
+                type="button"
+                (click)="clearInputImage('imagen', 'imagenContentType', 'file_imagen')"
+                class="btn btn-secondary btn-xs pull-right"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_imagen"
+              data-cy="imagen"
+              (change)="setFileData($event, 'imagen', true)"
+              accept="image/*"
+              jhiTranslate="entity.action.addimage"
+            />
+          </div>
+          <input type="hidden" class="form-control" name="imagen" id="field_imagen" data-cy="imagen" formControlName="imagen" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="imagenContentType"
+            id="field_imagenContentType"
+            formControlName="imagenContentType"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="inventarioTecnoPcMundoApp.publicacion.createAt" for="field_createAt"
+            >Create At</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_createAt"
+              data-cy="createAt"
+              type="datetime-local"
+              class="form-control"
+              name="createAt"
+              formControlName="createAt"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="inventarioTecnoPcMundoApp.publicacion.categoriaPublicacion"
+            for="field_categoriaPublicacion"
+            >Categoria Publicacion</label
+          >
+          <select
+            class="form-control"
+            id="field_categoriaPublicacion"
+            data-cy="categoriaPublicacion"
+            name="categoriaPublicacion"
+            formControlName="categoriaPublicacion"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                categoriaPublicacionOption.id === editForm.get('categoriaPublicacion')!.value?.id
+                  ? editForm.get('categoriaPublicacion')!.value
+                  : categoriaPublicacionOption
+              "
+              *ngFor="let categoriaPublicacionOption of categoriaPublicacionsSharedCollection; trackBy: trackCategoriaPublicacionById"
+            >
+              {{ categoriaPublicacionOption.titulo }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="inventarioTecnoPcMundoApp.publicacion.user" for="field_user">User</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption"
+              *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById"
+            >
+              {{ userOption.login }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="inventarioTecnoPcMundoApp.publicacion.estado" for="field_estado">Estado</label>
+          <select class="form-control" id="field_estado" data-cy="estado" name="estado" formControlName="estado">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                estadoPublicacionOption.id === editForm.get('estado')!.value?.id ? editForm.get('estado')!.value : estadoPublicacionOption
+              "
+              *ngFor="let estadoPublicacionOption of estadoPublicacionsSharedCollection; trackBy: trackEstadoPublicacionById"
+            >
+              {{ estadoPublicacionOption.nombre }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

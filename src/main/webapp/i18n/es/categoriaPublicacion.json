@@ -1,0 +1,26 @@
+{
+  "inventarioTecnoPcMundoApp": {
+    "categoriaPublicacion": {
+      "home": {
+        "title": "Categoria Publicacions",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Categoria Publicacion",
+        "createOrEditLabel": "Crear o editar Categoria Publicacion",
+        "notFound": "Ningún Categoria Publicacions encontrado"
+      },
+      "created": "Un nuevo Categoria Publicacion ha sido creado con el identificador {{ param }}",
+      "updated": "Un Categoria Publicacion ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Categoria Publicacion ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Categoria Publicacion {{ id }}?"
+      },
+      "detail": {
+        "title": "Categoria Publicacion"
+      },
+      "id": "ID",
+      "titulo": "Titulo",
+      "descripcion": "Descripcion",
+      "createAt": "Create At"
+    }
+  }
+}

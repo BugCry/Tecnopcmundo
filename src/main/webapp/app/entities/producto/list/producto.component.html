@@ -1,0 +1,162 @@
+<div>
+  <h2 id="page-heading" data-cy="ProductoHeading">
+    <span jhiTranslate="inventarioTecnoPcMundoApp.producto.home.title">Productos</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="inventarioTecnoPcMundoApp.producto.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-success jh-create-entity create-producto"
+        [routerLink]="['/producto/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="inventarioTecnoPcMundoApp.producto.home.createLabel"> Create a new Producto </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="productos?.length === 0">
+    <span jhiTranslate="inventarioTecnoPcMundoApp.producto.home.notFound">No productos found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="productos && productos.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+          <th scope="col" jhiSortBy="id">
+            <span jhiTranslate="global.field.id">ID</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="nombre">
+            <span jhiTranslate="inventarioTecnoPcMundoApp.producto.nombre">Nombre</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="cantidad">
+            <span jhiTranslate="inventarioTecnoPcMundoApp.producto.cantidad">Cantidad</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="precio.precioVenta">
+            <span>Precio Venta</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="precio.precioCompra">
+            <span>Precio Compra</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="categoria.nombre">
+            <span jhiTranslate="inventarioTecnoPcMundoApp.producto.categoria">Categoria</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="proveedor.nombre">
+            <span jhiTranslate="inventarioTecnoPcMundoApp.producto.proveedor">Proveedor</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="estado.nombre">
+            <span jhiTranslate="inventarioTecnoPcMundoApp.producto.estado">Estado</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let producto of productos; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/producto', producto.id, 'view']">{{ producto.id }}</a>
+          </td>
+          <td>{{ producto.nombre }}</td>
+          <td>{{ producto.cantidad }}</td>
+          <td>
+            <div *ngIf="producto.precio">
+              <a [routerLink]="['/precio', producto.precio?.id, 'view']">{{ producto.precio?.precioVenta }}</a>
+            </div>
+          </td>
+
+          <td>
+            <div *ngIf="producto.precio">
+              <a [routerLink]="['/precio', producto.precio?.id, 'view']">{{ producto.precio?.precioCompra }}</a>
+            </div>
+          </td>
+
+          <td>
+            <div *ngIf="producto.categoria">
+              <a [routerLink]="['/categoria', producto.categoria?.id, 'view']">{{ producto.categoria?.nombre }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="producto.proveedor">
+              <a [routerLink]="['/proveedor', producto.proveedor?.id, 'view']">{{ producto.proveedor?.nombre }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="producto.estado">
+              <a [routerLink]="['/estado', producto.estado?.id, 'view']">{{ producto.estado?.nombre }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/producto', producto.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/producto', producto.id, 'edit']"
+                class="btn btn-success btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="button" class="btn btn-warning btn-sm" *ngIf="producto.cantidad !== 0" (click)="agregarAlCarrito(producto)">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Agregar al carrito</span>
+              </button>
+
+              <!-- 
+              <button type="submit" (click)="delete(producto)" class="btn btn-danger btn-sm"
+                data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+              -->
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="productos && productos.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

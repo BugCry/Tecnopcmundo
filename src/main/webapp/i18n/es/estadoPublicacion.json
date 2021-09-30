@@ -1,0 +1,24 @@
+{
+  "inventarioTecnoPcMundoApp": {
+    "estadoPublicacion": {
+      "home": {
+        "title": "Estado Publicacions",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Estado Publicacion",
+        "createOrEditLabel": "Crear o editar Estado Publicacion",
+        "notFound": "Ningún Estado Publicacions encontrado"
+      },
+      "created": "Un nuevo Estado Publicacion ha sido creado con el identificador {{ param }}",
+      "updated": "Un Estado Publicacion ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Estado Publicacion ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Estado Publicacion {{ id }}?"
+      },
+      "detail": {
+        "title": "Estado Publicacion"
+      },
+      "id": "ID",
+      "nombre": "Nombre"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "inventarioTecnoPcMundoApp": {
+    "detallesUsuario": {
+      "home": {
+        "title": "Detalles Usuarios",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Detalles Usuario",
+        "createOrEditLabel": "Crear o editar Detalles Usuario",
+        "notFound": "Ningún Detalles Usuarios encontrado"
+      },
+      "created": "Un nuevo Detalles Usuario ha sido creado con el identificador {{ param }}",
+      "updated": "Un Detalles Usuario ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Detalles Usuario ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Detalles Usuario {{ id }}?"
+      },
+      "detail": {
+        "title": "Detalles Usuario"
+      },
+      "id": "ID",
+      "telefono": "Telefono",
+      "identificacion": "Identificacion",
+      "ciudad": "Ciudad",
+      "user": "User",
+      "compra": "Compra"
+    }
+  }
+}
